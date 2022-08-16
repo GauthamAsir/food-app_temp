@@ -114,7 +114,7 @@ class _SignUpState extends State<SignUp> {
           content: Text("Phone Number Is Empty"),
         ),
       );
-    } else if (phoneNumber.text.length < 11) {
+    } else if (phoneNumber.text.length < 10) {
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("Phone Number Must Be 11 "),
@@ -126,7 +126,7 @@ class _SignUpState extends State<SignUp> {
           content: Text("Password Is Empty"),
         ),
       );
-    } else if (password.text.length < 8) {
+    } else if (password.text.length < 6) {
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("Password Is Too Short"),

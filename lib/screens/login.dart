@@ -16,7 +16,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final TextEditingController email = TextEditingController();
-   final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
 
   bool isLoading = false;
   UserCredential authResult;
@@ -90,7 +90,7 @@ class _LoginState extends State<Login> {
           content: Text("Password Is Empty"),
         ),
       );
-    } else if (password.text.length < 8) {
+    } else if (password.text.length < 6) {
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("Password Is Too Short"),
@@ -101,7 +101,6 @@ class _LoginState extends State<Login> {
     }
   }
 
- 
   final TextEditingController password = TextEditingController();
 
   Widget _buildAllTextFormFiledPlace() {

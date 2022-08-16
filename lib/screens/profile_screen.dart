@@ -24,6 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   static RegExp regExp = new RegExp(p);
   File image;
+
   Future<void> getImage({ImageSource imageSource}) async {
     PickedFile pickedFile = await ImagePicker().getImage(source: imageSource);
     if (pickedFile != null) {
@@ -91,40 +92,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
-      child: Builder(builder: (BuildContext context) {
-        return AlertDialog(
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.camera),
-                  title: Text("Camera"),
-                  onTap: () {
-                    getImage(
-                      imageSource: ImageSource.camera,
-                    );
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.album),
-                  title: Text("Gallery"),
-                  onTap: () {
-                    getImage(
-                      imageSource: ImageSource.gallery,
-                    );
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ),
+      builder: (BuildContext context) => AlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              ListTile(
+                leading: Icon(Icons.camera),
+                title: Text("Camera"),
+                onTap: () {
+                  getImage(
+                    imageSource: ImageSource.camera,
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.album),
+                title: Text("Gallery"),
+                onTap: () {
+                  getImage(
+                    imageSource: ImageSource.gallery,
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
           ),
-        );
-      }),
+        ),
+      ),
     );
   }
 
   final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
+
   Widget _buildAllTextFormField() {
     return Container(
       child: Column(
