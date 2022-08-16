@@ -16,32 +16,48 @@ class _SignInState extends State<SignIn> {
   UserProvider userProvider;
   Future<void> _googleSignUp() async {
     try {
+      print('Pass 1');
+
       final GoogleSignIn _googleSignIn = GoogleSignIn(
         scopes: ['email'],
       );
       final FirebaseAuth _auth = FirebaseAuth.instance;
 
+      print('Pass 2');
+
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
+
+      print('Pass 3');
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
+      print('Pass 4');
+
       final User user = (await _auth.signInWithCredential(credential)).user;
-      // print("signed in " + user.displayName);
-      userProvider.addUserData(
+
+      print("signed in " + user.displayName);
+      await userProvider.addUserData(
         currentUser: user,
         userEmail: user.email,
         userImage: user.photoURL,
         userName: user.displayName,
       );
 
-      return user;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+
+      return;
     } catch (e) {
       print(e.message);
+      return;
     }
   }
 
@@ -88,13 +104,14 @@ class _SignInState extends State<SignIn> {
                         Buttons.Google,
                         text: "Sign in with Google",
                         onPressed: () async {
-                          await _googleSignUp().then(
-                            (value) => Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ),
-                            ),
-                          );
+                          _googleSignUp();
+                          // await _googleSignUp().then(
+                          //   (value) => Navigator.of(context).pushReplacement(
+                          //     MaterialPageRoute(
+                          //       builder: (context) => HomeScreen(),
+                          //     ),
+                          //   ),
+                          // );
                         },
                       ),
                     ],
